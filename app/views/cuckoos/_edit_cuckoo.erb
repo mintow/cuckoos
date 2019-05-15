@@ -1,0 +1,104 @@
+<table>
+  <%= form_for @cuckoo, url: @cuckoo.new_record? ? project_cuckoos_path : project_cuckoo_path(:project_id => @project.id, :id => @cuckoo.id) do |f| %>
+    <tr>
+      <th><%= f.label l(:label_tracker) %></th>
+      <td><%= select :item, :tracker_id, options_for_select(@trackeroptions, selected = @cuckoo.tracker_id), {:include_blank => l(:label_tracker_all)}, {:multiple => false, :required => false} %></td>
+    </tr>
+
+    <tr>
+      <th><%= f.label l(:cuckoo_days) %></th>
+      <td><%= f.text_field :days, :type => "number", :required => true, :min => -100 %>
+                <%= f.label :days_tips, l(:cuckoo_days_tips) %> </td>
+    </tr>
+
+   <tr>
+    <th><%= f.label l(:cuckoo_trigger_cycle) %></th>
+    <td id="item_trigger_cycle-<%= @cuckoo.new_record? ? 'new' : @cuckoo.id %>">
+      <%= select :item, :trigger_cycle, options_for_select(cycles_for_options, @cuckoo.new_record? ? :daily : @cuckoo.trigger_cycle), {}, :disabled => @cuckoo.new_record? ? false : @cuckoo.days < 0 %></td>
+   </tr>
+
+    <tr id="trigger_point-<%= @cuckoo.new_record? ? 'new' : @cuckoo.id %>">
+      <%= render :partial => 'trigger_points',
+          :locals => { :possible_values => Cuckoo.trigger_points_for(@cuckoo.new_record? ? :daily : @cuckoo.trigger_cycle),
+                        :selected_value => @cuckoo.trigger_point,
+                        :cuckoo => @cuckoo} %>
+    </tr>
+
+    <tr>
+      <th><%= f.label l(:cuckoo_related_users) %></th>
+      <td>
+        <%= f.check_box :sendto_author %>
+        <%= f.label :sendto_author, l(:field_author) %>
+
+        <%= f.check_box :sendto_assignee %>
+        <%= f.label :sendto_assignee, l(:field_assigned_to) %>
+
+        <%= f.check_box :sendto_watcher %>
+        <%= f.label :sendto_watcher, l(:field_watcher) %>
+
+        <%= f.check_box :sendto_custom_user %>
+        <%= f.label :sendto_custom_user, l(:cuckoo_custom_user) %>
+      </td>
+    </tr>
+
+    <tr>
+     <th><%= f.label l(:cuckoo_other_users) %></th>
+      <td>
+        <%= select :item, :other_users, options_for_select(@useroptions, selected = @cuckoo.new_record? ? '' : eval(@cuckoo.other_users)), {}, {:multiple => true, :required => false, :size => 10} %>
+        </td>
+    </tr>
+
+    <tr>
+      <th><%= f.label l(:cuckoo_send_by_package) %></th>
+      <td> <%= f.check_box :send_by_package %></td>
+    </tr>
+    <tr>
+      <th><%= f.label l(:cuckoo_email_tips) %></th>
+      <td><%= f.text_field :email_tips, :type => "string", :size => 32, :maxlength => 30, :disabled => !@cuckoo.send_by_package %> <%= f.label :cuckoo_email_tips_tips, l(:cuckoo_email_tips_tips) %></td>
+    </tr>
+
+    <tr>
+      <th style="text-align: right"><%= f.submit l(:button_submit) %></th>
+      <th style="text-align: left"><%= link_to l(:button_back), project_cuckoos_path %></th>
+    </tr>
+  <% end %>
+</table>
+
+<script type="text/javascript">
+  (function( $ ){
+    $(function() {
+      Element = function(){}
+      Element.update = function(id,html){$('#'+id).html(html);}
+      $('#item_trigger_cycle').change(function(event){
+        val = $(this).val();
+        cuckoo_id = $(this).closest('td').attr('id').replace('item_trigger_cycle-', '');
+        $.ajax({
+          url: "update_trigger_points",
+          method: "POST",
+          data: {
+            trigger_cycle: val,
+            cuckoo_id: cuckoo_id
+          }
+        });
+      });
+    });
+
+    $('#cuckoo_days').change(
+      function(){
+        console.log($(this).val());
+        if ($(this).val() < 0) {
+          $('#item_trigger_cycle').val('oneshot').change();
+          $('#item_trigger_cycle').prop('disabled', true);
+        }
+        else {
+          $('#item_trigger_cycle').prop('disabled', false);
+        }
+      });
+
+    $('#cuckoo_send_by_package').change(
+      function() {
+        $('#cuckoo_email_tips').prop('disabled', !$(this).prop('checked'))
+      });
+
+  })( jQuery );
+</script>

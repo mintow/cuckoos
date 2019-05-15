@@ -1,0 +1,23 @@
+    <table class="list issues">
+    <thead>
+      <tr>
+        <th style="text-align:center"><%= "#" %></th>
+        <th style="text-align:center"><%= t(:field_tracker) %></th>
+        <th style="text-align:center"><%= t(:field_status) %></th>
+        <th style="text-align:center"><%= t(:field_subject) %></th>
+        <th style="text-align:center"><%= t(:field_due_date) %></th>
+        <th style="text-align:center"><%= t(:field_assigned_to) %></th>
+      </tr>
+    </thead>
+
+    <% @ids.each do |id| %>
+      <tr>
+        <td style="white-space:nowrap; text-align:center;"> <%= link_to("#{id}", :controller => 'issues', :action => 'show', :id => id, :host => @host, :port => @port) %> </td>
+        <td style="white-space:nowrap; text-align:center;"> <%= Tracker.find_by_id(Issue.find_by_id(id).tracker_id).name %> </td>
+        <td style="white-space:nowrap; text-align:center;"> <%= Issue.find_by_id(id).status.name %> </td>
+        <td style="max-width:500px"> <%= link_to("#{Issue.find_by_id(id).subject}", :controller => 'issues', :action => 'show', :id => id, :host => @host, :port => @port) %></td>
+        <td style="white-space:nowrap; text-align:center;"> <%= Issue.find_by_id(id).due_date %></td>
+        <td> <%= User.find_by_id(Issue.find_by_id(id).assigned_to_id).name if Issue.find_by_id(id).assigned_to_id %></td>
+      </tr>
+    <% end %>
+  </table>

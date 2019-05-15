@@ -1,0 +1,45 @@
+<% if @cuckoos.blank? %>
+  <p><%= l(:cuckoo_not_exist) %></p>
+<% else %>
+  <table class="list members">
+    <thead>
+      <tr>
+      	<th><%= l(:label_tracker) %></th>
+        <th><%= l(:cuckoo_days) %></th>
+        <th><%= l(:cuckoo_trigger_cycle) %></th>
+        <th><%= l(:cuckoo_trigger_point) %></th>
+        <th><%= l(:field_author) %></th>
+        <th><%= l(:field_assigned_to) %></th>
+        <th><%= l(:field_watcher) %></th>
+        <th><%= l(:cuckoo_custom_user) %></th>
+        <th><%= l(:cuckoo_other_users) %></th>
+        <th><%= l(:cuckoo_send_by_package) %></th>
+        <th><%= l(:cuckoo_email_tips) %></th>
+        <th><%= l(:cuckoo_actions) %></th>
+      </tr>
+    </thead>
+
+    <% @cuckoos.each do |cuckoo| %>
+      <tr>
+        <td><%= get_tracker_name(cuckoo.tracker_id) %></td>
+        <td><%= cuckoo.days %></td>
+        <td><%= get_cycle_name(cuckoo.trigger_cycle) %></td>
+        <td><%= get_point_name(cuckoo.trigger_cycle, cuckoo.trigger_point) %></td>
+        <td><span class="icon <%= (cuckoo.sendto_author ?  'icon-ok' : '') %>"></span></td>
+        <td><span class="icon <%= (cuckoo.sendto_assignee ?  'icon-ok' : '') %>"></span></td>
+        <td><span class="icon <%= (cuckoo.sendto_watcher ?  'icon-ok' : '') %>"></span></td>
+        <td><span class="icon <%= (cuckoo.sendto_custom_user ?  'icon-ok' : '') %>"></span></td>
+        <td><%= get_user_names(cuckoo.id) %></td>
+        <td><span class="icon <%= (cuckoo.send_by_package ?  'icon-ok' : '') %>"></span></td>
+        <td style="max-width:400px; word-break: break-all"> <%= cuckoo.send_by_package ? cuckoo.email_tips : '' %></td>
+        <td>
+          <%= link_to l(:button_send_now), project_cuckoo_send_path(:cuckoo_id => cuckoo.id), :class => 'icon icon-email', data: { confirm: l(:warning_send_now) } %>
+          <%= link_to l(:button_edit), edit_project_cuckoo_path(:id => cuckoo.id), method: :edit, :class => 'icon icon-edit' %>
+          <%= link_to l(:button_delete), project_cuckoo_path(:id => cuckoo.id), method: :delete, :class => 'icon icon-del', data: { confirm: l(:warning_delete) } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<h4><%= link_to l(:cuckoo_new), new_project_cuckoo_path, :class => 'icon icon-add' %></h4>

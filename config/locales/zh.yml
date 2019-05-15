@@ -1,0 +1,67 @@
+# Simplified Chinese strings.
+zh:
+  button_send_now: "立即发送"
+
+  cuckoo_menu_title: "Cuckoo提醒"
+  cuckoo_new: "新增提醒"
+  cuckoo_edit: "编辑提醒"
+  cuckoo_not_saved: "提醒配置信息不能保存！"
+  cuckoo_not_updated: "提醒配置更新失败！"
+  cuckoo_not_removed: "提醒配置不能删除！"
+  cuckoo_not_exist: "当前项目没有提醒配置。"
+
+  every_of_month_format: "每月的%s号"
+  every: "每"
+  sunday: "周日"
+  monday: "周一"
+  tuesday: "周二"
+  wednesday: "周三"
+  thursday: "周四"
+  friday: "周五"
+  saturday: "周六"
+  every_weekly_format: "每%s"
+  daily: "每天"
+  weekly: "每周"
+  monthly: "每月"
+  oneshot: "仅提醒一次"
+
+  cuckoo_days: "超期天数"
+  cuckoo_days_tips: "（可以为负数，如-7表示未来7天后将要超期；当为负数时，提醒周期只支持“仅提醒一次”）"
+  cuckoo_custom_user: "自定义属性中的人员"
+  cuckoo_related_users: "相关人员"
+  cuckoo_other_users: "其他人员"
+  cuckoo_send_by_package: "打包发送"
+  cuckoo_email_tips: "邮件标题中的提示"
+  cuckoo_email_tips_tips: "（最多30个字，可以为空；仅用于“打包发送”的提醒邮件）"
+  cuckoo_actions: "操作"
+
+  cuckoo_trigger_cycle: "提醒周期"
+  cuckoo_trigger_point: "提醒日期"
+
+  user_none: "无"
+  tracker_all: "全部类型"
+
+  warning_send_now: "确定要立即发送提醒邮件？"
+  warning_delete: "确定删除？"
+
+  mail_subject_cuckoo_one_issue: "已超期%{days}天"
+  mail_subject_cuckoo_one_issue2: "已超期%{days}天"
+  mail_subject_cuckoo_one_today_issue: "今天将到期"
+  mail_subject_cuckoo_one_future_issue: "未来%{days}天后将到期"
+  mail_subject_cuckoo_one_future_issue2: "未来%{days}天后将到期"
+
+  mail_subject_cuckoo_package_issue1: "有%{count}个任务已超期多于%{days}天"
+  mail_subject_cuckoo_package_issue2: "有%{count}个任务已超期多于%{days}天"
+  mail_subject_cuckoo_package_issues1: "有%{count}个任务已超期多于%{days}天"
+  mail_subject_cuckoo_package_issues2: "有%{count}个任务已超期多于%{days}天"
+  mail_subject_cuckoo_package_today_issue: "有%{count}个任务今天将到期"
+  mail_subject_cuckoo_package_today_issues: "有%{count}个任务今天将到期"
+  mail_subject_cuckoo_package_future_issue1: "有%{count}个任务未来%{days}天后将到期"
+  mail_subject_cuckoo_package_future_issue2: "有%{count}个任务未来%{days}天后将到期"
+  mail_subject_cuckoo_package_future_issues1: "有%{count}个任务未来%{days}天后将到期"
+  mail_subject_cuckoo_package_future_issues2: "有%{count}个任务未来%{days}天后将到期"
+
+  have_send_some_email: "已成功发送%{count}封提醒邮件"
+  have_send_some_emails: "已成功发送%{count}封提醒邮件"
+  have_no_suitable_issue: "没有符合条件的超期问题！"
+
