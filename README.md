@@ -1,4 +1,4 @@
-Cuckoo Reminder
+CuckooReminder
 ==========
 
 [Plugin page on redmine.org](http://www.redmine.org/plugins/cuckoos)
@@ -8,7 +8,7 @@ Compatible with redmine 3.4 (on branch remotes/origin/3.4-stable)
 The cuckoos plugin provides a powerful way to automatic send email reminder
 for every project & every tracker & every user with web interface.
 
-## Features:
+## Features
  - Support to select one or multi-type of tracker
  - Four types of trigger cycle: daily, weekly, monthly, oneshot
  - Four types of user: author, assignee, watcher, user in custom field
@@ -22,17 +22,22 @@ for every project & every tracker & every user with web interface.
 
 ## Screenshots
 ### The list of cuckoos:
+![image](https://github.com/mintow/cuckoos/blob/master/assets/images/screenshots/cuckoos_list.png)
 
 ### The interface of edit & new a cuckoo:
+![image](https://github.com/mintow/cuckoos/blob/master/assets/images/screenshots/cuckoo_edit.png)
 
 ### A cuckoo email of a single issue:
+![image](https://github.com/mintow/cuckoos/blob/master/assets/images/screenshots/send_one_issue.png)
 
 ### A cuckoo email of a issue package:
+![image](https://github.com/mintow/cuckoos/blob/master/assets/images/screenshots/send_by_package.png)
 
 ## Installation
 
 1. Clone this repository into ```redmine/plugins/cuckoos```
 2. Install dependencies and migrate database
+
 ```console
 cd redmine/
 bundle install
@@ -43,7 +48,8 @@ RAILS_ENV=production rake redmine:plugins:migrate
 * Activate `Manage cuckoos` permission in "Administration -> Roles and permissions"
 * Activate `Cuckoos` module in project settings
 * Set cronjob, after that you need restart cron daemon:
-```
+
+```console
 $ crontab -e
 # Trigger cuckoos at 08:00 every day.
 0 8 * * * cd redmine/ && rake redmine:reminder_all_cuckoos RAILS_ENV="production"
@@ -52,6 +58,7 @@ $ crontab -e
 ## Uninstall
 
 First migrate plugin, then remove plugin files.
+
 ```console
 $ cd /path/to/redmine
 $ rake redmine:plugins:migrate NAME=cuckoos VERSION=0 RAILS_ENV="production"
